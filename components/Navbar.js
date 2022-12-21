@@ -1,6 +1,5 @@
 import useDarkMode from "../hooks/darkMode";
 import Link from "next/link";
-// import 'flowbite'
 
  const Navbar = ({authLink, authType}) => {
     return (

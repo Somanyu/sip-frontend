@@ -1,53 +1,52 @@
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { useState, useEffect } from "react";
 
-const Calculate = ()=> {
+const Calculate = () => {
+
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        async function fetchData() {
+          const res = await fetch('http://localhost:3001/users/data', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ someData: 'some value' }),
+          });
+          const json = await res.json();
+          setData(json);
+        }
+        fetchData();
+      }, []);
+
     return (
         <>
-        <Navbar authLink={'/logout'} authType={'Log Out'} />
-        <section class="bg-white dark:bg-gray-900">
-  <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
-      <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white font-karla">Add a new product</h2>
-      <form class="font-inter" action="#">
-          <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
-              <div class="sm:col-span-2">
-                  <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Name</label>
-                  <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Type product name" required=""/>
-              </div>
-              <div class="w-full">
-                  <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Brand</label>
-                  <input type="text" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Product brand" required=""/>
-              </div>
-              <div class="w-full">
-                  <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                  <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="$2999" required=""/>
-              </div>
-              <div>
-                  <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-                  <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                      <option selected="">Select category</option>
-                      <option value="TV">TV/Monitors</option>
-                      <option value="PC">PC</option>
-                      <option value="GA">Gaming/Console</option>
-                      <option value="PH">Phones</option>
-                  </select>
-              </div>
-              <div>
-                  <label for="item-weight" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Item Weight (kg)</label>
-                  <input type="number" name="item-weight" id="item-weight" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="12" required=""/>
-              </div> 
-              <div class="sm:col-span-2">
-                  <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                  <textarea id="description" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your description here"></textarea>
-              </div>
-          </div>
-          <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
-              Add product
-          </button>
-      </form>
-  </div>
-</section>
-        <Footer/>
+            <Navbar authLink={'/logout'} authType={'Log Out'} />
+            <section class="bg-white dark:bg-gray-900 font-inter p-20">
+                <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+                    <div class="mr-auto place-self-center lg:col-span-7">
+                        {data ? (
+                        <h1 class="font-karla max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">{data.email} {data.password}</h1>
+                        ) : (
+                        <h1 class="font-karla max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">Loading data.....</h1>
+                        )}
+                        <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">From checkout to global sales tax compliance, companies around the world use Flowbite to simplify their payment stack.</p>
+                        <a href="#" class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+                            Get started
+                            <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                        </a>
+                        <a href="#" class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                            Speak to Sales
+                        </a>
+                    </div>
+                    <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
+                        {/* <img src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png" alt="mockup"> */}
+                    </div>
+                </div>
+            </section>
+            <Footer />
 
         </>
     )

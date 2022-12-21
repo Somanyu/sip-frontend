@@ -3,35 +3,13 @@ import Navbar from "../components/Navbar";
 import { useState, useEffect } from "react";
 
 const Calculate = () => {
-
-    const [data, setData] = useState(null);
-
-    useEffect(() => {
-        async function fetchData() {
-          const res = await fetch('http://localhost:3001/users/data', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ someData: 'some value' }),
-          });
-          const json = await res.json();
-          setData(json);
-        }
-        fetchData();
-      }, []);
-
     return (
         <>
             <Navbar authLink={'/logout'} authType={'Log Out'} />
-            <section class="bg-white dark:bg-gray-900 font-inter p-20">
+            <section class="bg-white dark:bg-gray-900 font-inter p-28">
                 <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
                     <div class="mr-auto place-self-center lg:col-span-7">
-                        {data ? (
-                        <h1 class="font-karla max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">{data.email} {data.password}</h1>
-                        ) : (
-                        <h1 class="font-karla max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">Loading data.....</h1>
-                        )}
+                        <h1 class="font-karla max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">Payments tool for software companies</h1>
                         <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">From checkout to global sales tax compliance, companies around the world use Flowbite to simplify their payment stack.</p>
                         <a href="#" class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
                             Get started

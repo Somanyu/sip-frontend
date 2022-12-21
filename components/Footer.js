@@ -1,4 +1,4 @@
-function Footer() {
+const Footer = () => {
     return (
         <>
             <footer class="p-4 bg-white md:p-8 lg:p-10 dark:bg-gray-800 pt-12">

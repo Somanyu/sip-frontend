@@ -9,9 +9,9 @@ import CTA from '../components/CTA'
 export default function Home() {
   return (
     <>
-      <Navbar />
+      <Navbar authLink={"/signup"} authType={'Sign Up'} />
       <Hero />
-      <CTA/>
+      <CTA />
       <Footer />
     </>
   )

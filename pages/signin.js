@@ -47,13 +47,13 @@ function Login() {
 
             if (res.ok) {
                 setData(json);
-                if (json.message) {
+                if (json.successMsg) {
                     Router.push('/calculate');
                 } else {
                     Router.push('/signin');
                 }
             } else {
-                setError(json.message)
+                setError(json.errorMsg)
             }
         }
         fetchData()

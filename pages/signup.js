@@ -46,13 +46,13 @@ const SignUp = () => {
 
             if (res.ok) {
                 setData(json);
-                if (json.message) {
+                if (json.successMsg) {
                     Router.push('/signup');
                 } else {
                     Router.push('/signup');
                 }
             } else {
-                setError(json.error)
+                setError(json.errorMsg)
             }
         }
         fetchData()
@@ -65,11 +65,11 @@ const SignUp = () => {
                 <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                     {data ? (
                         <div class="font-inter p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
-                            <span class="font-bold">{data.message}</span> You can now sign in.
+                            <span class="font-bold">{data.successMsg}</span> You can now sign in.
                         </div>
                     ) : error ? (
                         <div class="font-inter p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
-                            <span class="font-bold">{error.error}</span> Change a few things up and try submitting again.
+                            <span class="font-bold">{error}</span> Change a few things up and try submitting again.
                         </div>
                     ) : null}
                     <a href="#" class="font-karla flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
